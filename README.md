@@ -2,15 +2,15 @@
 
 > Modern end-to-end testing in **TypeScript** with **Playwright** — cross-browser, parallel runs, screenshot diffing, and **GitHub Actions**.
 
-[![Playwright Tests](https://github.com/YOUR_GH_USER/playwright-e2e-suite/actions/workflows/playwright.yml/badge.svg)](https://github.com/YOUR_GH_USER/playwright-e2e-suite/actions/workflows/playwright.yml)
+[![Playwright Tests](https://github.com/bakhrom-i/playwright-e2e-suite/actions/workflows/playwright.yml/badge.svg)](https://github.com/bakhrom-i/playwright-e2e-suite/actions/workflows/playwright.yml)
 ![TypeScript](https://img.shields.io/badge/typescript-5-blue)
 ![Playwright](https://img.shields.io/badge/playwright-1.43-2EAD33)
 ![Node](https://img.shields.io/badge/node-20-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-**📊 Live test report:** https://YOUR_GH_USER.github.io/playwright-e2e-suite/
+**📊 Live test report:** https://bakhrom-i.github.io/playwright-e2e-suite/
 
-> _Replace `YOUR_GH_USER` with your GitHub username after pushing._
+> _Replace `bakhrom-i` with your GitHub username after pushing._
 
 ## Tech Stack
 
@@ -74,7 +74,7 @@ npm run test:update-snapshots  # regenerate baselines after intentional UI chang
 
 1. Push the repo to GitHub
 2. **Settings** → **Pages** → **Source: GitHub Actions**
-3. Push to `main` — `publish-report` deploys to `https://YOUR_GH_USER.github.io/playwright-e2e-suite/`
+3. Push to `main` — `publish-report` deploys to `https://bakhrom-i.github.io/playwright-e2e-suite/`
 
 ## License
 
