@@ -1,0 +1,55 @@
+# Manual workflow: regenerate visual baselines on CI's Linux runners
+# and commit them back to the repo.
+#
+# Why this exists:
+# Playwright snapshots are OS- and browser-specific. A snapshot taken on
+# Windows won't match the CI Linux runner, so generating them locally
+# doesn't work — they have to be generated where the assertions run.
+#
+# How to use:
+#   GitHub → Actions → "Update Visual Baselines" → Run workflow
+#   The job runs `playwright test --update-snapshots` for the visual specs
+#   and pushes the resulting *.png files back to main.
+
+name: Update Visual Baselines
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Need a real ref so we can push back, not a detached HEAD.
+          ref: ${{ github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Install browsers
+        run: npx playwright install --with-deps
+
+      - name: Regenerate visual baselines
+        run: npx playwright test tests/visual --update-snapshots
+
+      - name: Commit and push baselines
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 'tests/visual/**/*.png'
+          if git diff --staged --quiet; then
+            echo "No baseline changes to commit."
+            exit 0
+          fi
+          git commit -m "ci: update Playwright visual baselines"
+          git push
